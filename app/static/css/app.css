@@ -1,3 +1,22 @@
-body {
+body{
     padding-top: 5rem;
+    font-family: sans-serif;
+    background: #f2f2f2;
+}
+img{
+    width: 100%; /* need to overwrite inline dimensions */
+    height: auto;
+    padding: 10px;
+}
+h2{
+    margin-bottom: .5em;
+}
+ul{
+    list-style-type: none;
+}
+
+.gallery{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-gap: 1em;
 }

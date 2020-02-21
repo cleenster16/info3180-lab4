@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block main %}
+
+<h2 class="page-header">Gallery</h2>
+<div>
+    <ul class="gallery">
+        {% for path in pathList %}
+        <li>
+            <img src="{{ url_for('static', filename=path) }}" class="listed-image" alt=path/>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}

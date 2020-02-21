@@ -11,6 +11,7 @@ from werkzeug.utils import secure_filename
 from app.forms import UploadForm
 
 
+
 ###
 # Routing for your application.
 ###
@@ -30,7 +31,8 @@ def about():
 @app.route('/upload', methods=['POST', 'GET'])
 def upload():
     if not session.get('logged_in'):
-        abort(401)
+        return redirect(url_for('login'))
+        #abort(401)
 
     # Instantiate your form class
     uploadForm = UploadForm()
@@ -69,6 +71,26 @@ def logout():
     flash('You were logged out', 'success')
     return redirect(url_for('home'))
 
+@app.route('/files')
+def files():
+    if not session.get('logged_in'):
+        return redirect(url_for('login'))
+        #abort(401)
+    
+    pathList = getUploadedImages()
+    return render_template('files.html', pathList=pathList)
+
+
+#Iterate over contents of uploads folder and returns list of filenames.
+def getUploadedImages():
+    rootDirect = os.getcwd()
+    pathList = []
+    for subdir, dirs, files in os.walk(rootDirect + '/app/static/uploads'):
+        for file in files:
+            if file.endswith(tuple([".jpg", ".png"])):
+                #pathList.append(os.path.join(subdir, file))
+                pathList.append("uploads/" + os.path.basename(file))
+    return pathList
 
 ###
 # The functions below should be applicable to all Flask apps.
